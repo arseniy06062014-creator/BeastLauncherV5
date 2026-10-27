@@ -1,0 +1,49 @@
+{
+  "name": "beast-launcher",
+  "version": "0.2.0",
+  "description": "BeastLauncher — Minecraft launcher",
+  "private": true,
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "electron:dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && electron .\"",
+    "electron:start": "npm run build && electron .",
+    "electron:pack": "npm run build && electron-builder",
+    "build:win": "vite build && electron-builder --win portable"
+  },
+  "dependencies": {
+    "minecraft-launcher-core": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "lucide-react": "^0.460.0",
+    "postcss": "^8.4.49",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.15",
+    "vite": "^5.4.11",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.beastlauncher.app",
+    "productName": "BeastLauncher",
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "artifactName": "BeastLauncher.exe"
+    }
+  }
+}

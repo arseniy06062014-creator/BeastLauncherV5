@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --obsidian: #0f0f0f;
+  --lava: #ff4d00;
+  --amber: #ffa500;
+  --lava-gradient: linear-gradient(90deg, #ff4d00 0%, #ffa500 100%);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--obsidian);
+  color: #fff;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---------- Scrollbar ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 77, 0, 0.55) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff4d00, #ffa500);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff6a2b, #ffb733);
+  background-clip: padding-box;
+}
+
+/* ---------- Electron window drag regions ---------- */
+.drag-region {
+  -webkit-app-region: drag;
+}
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* ---------- Glassmorphism utilities ---------- */
+.glass {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.glass-strong {
+  background: rgba(10, 10, 10, 0.62);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.glass-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.glass-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 120, 30, 0.35);
+}
+
+/* ---------- Accent helpers ---------- */
+.text-lava-gradient {
+  background: var(--lava-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Sidebar active glow ---------- */
+.nav-active {
+  background: linear-gradient(90deg, rgba(255, 77, 0, 0.28) 0%, rgba(255, 77, 0, 0.04) 100%);
+  box-shadow: inset 3px 0 0 #ff4d00;
+}
+
+/* ---------- Range slider ---------- */
+.range-lava {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  /* --fill is set from React (0%–100%) */
+  background: linear-gradient(
+    90deg,
+    #ff4d00 0%,
+    #ffa500 var(--fill, 50%),
+    rgba(255, 255, 255, 0.1) var(--fill, 50%),
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+.range-lava::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: transparent;
+}
+.range-lava::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 22px;
+  margin-top: -8px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #e9e9e9, #8d8d8d);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 120, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.range-lava::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 16px rgba(255, 140, 0, 0.95), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+.range-lava::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.range-lava::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--lava-gradient);
+}
+.range-lava::-moz-range-thumb {
+  width: 14px;
+  height: 22px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #e9e9e9, #8d8d8d);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 120, 0, 0.7);
+}
+
+/* ---------- Toggle switch ---------- */
+.toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f3f3f3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transition: transform 0.25s ease;
+}
+.toggle[aria-checked='true'] {
+  background: var(--lava-gradient);
+  box-shadow: 0 0 14px rgba(255, 90, 0, 0.55);
+}
+.toggle[aria-checked='true']::after {
+  transform: translateX(24px);
+}
+
+/* ---------- Play button ---------- */
+.btn-play {
+  position: relative;
+  background: linear-gradient(180deg, #ff6a00 0%, #ff4d00 45%, #d92b00 100%);
+  border: 1px solid rgba(255, 190, 120, 0.7);
+  box-shadow: 0 0 24px rgba(255, 77, 0, 0.55), 0 0 60px rgba(255, 77, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  animation: lava-pulse 2.8s ease-in-out infinite;
+}
+.btn-play:hover {
+  transform: scale(1.03);
+  filter: brightness(1.15);
+  box-shadow: 0 0 36px rgba(255, 110, 0, 0.85), 0 0 90px rgba(255, 90, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.btn-play:active {
+  transform: scale(0.99);
+}
+@keyframes lava-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 24px rgba(255, 77, 0, 0.55), 0 0 60px rgba(255, 77, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(255, 100, 0, 0.75), 0 0 80px rgba(255, 77, 0, 0.38),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+}
+
+/* ---------- Hero ---------- */
+.hero-bg {
+  background-color: #120a08;
+  background-size: cover;
+  background-position: center 30%;
+}
+
+/* ---------- Status dot ---------- */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot-online {
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+}
+.dot-maintenance {
+  background: #facc15;
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.8);
+}
+
+/* ---------- Fade-in ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fade-up 0.45s ease both;
+}
+
+/* ---------- Extra status dots ---------- */
+.dot-offline {
+  background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+}
+.dot-unknown {
+  background: #737373;
+}
+
+/* ---------- Form controls & buttons ---------- */
+.input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0.65rem 1rem;
+  font-size: 15px;
+  color: #fff;
+  outline: none;
+  user-select: text;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+.input:focus {
+  border-color: #ff4d00;
+  box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.18);
+}
+
+.btn-lava,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+.btn-lava {
+  background: linear-gradient(90deg, #ff4d00, #ff8a00);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(255, 77, 0, 0.35);
+}
+.btn-lava:hover:not(:disabled) {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+.btn-lava:disabled,
+.btn-ghost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
